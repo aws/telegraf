@@ -21,13 +21,13 @@ import (
 // Reminder, keep this in sync with the plugin's README.md
 const sampleConfig = `
   ##
-  ## ec2tagger calls AWS api to fetch EC2 Metadata and Instance Tags and EBS Volumes associated with the  
+  ## ec2tagger calls AWS api to fetch EC2 Metadata and Instance Tags and EBS Volumes associated with the
   ## current EC2 Instance and attched those values as tags to the metric.
-  ## 
+  ##
   ## Frequency for the plugin to refresh the EC2 Instance Tags and ebs Volumes associated with this Instance.
   ## Defaults to 0 (no refresh).
   ## When it is zero, ec2tagger doesn't do refresh to keep the ec2 tags and ebs volumes updated. However, as the
-  ## AWS api request made by ec2tagger might not return the complete values (e.g. initial api call might return a 
+  ## AWS api request made by ec2tagger might not return the complete values (e.g. initial api call might return a
   ## subset of ec2 tags), ec2tagger will retry every 3 minutes until all the tags/volumes (as specified by
   ## "ec2_instance_tag_keys"/"ebs_device_keys") are retrieved successfully. (Note when the specified list is ["*"],
   ## there is no way to check if all tags/volumes are retrieved, so there is no retry in that case)
@@ -46,7 +46,7 @@ const sampleConfig = `
   # ec2_instance_tag_keys = ["aws:autoscaling:groupName", "Name"]
   ##
   ## Retrieve ebs_volume_id for the specified devices, add ebs_volume_id as tag. The specified devices are
-  ## the values corresponding to the tag key "disk_device_tag_key" in the input metric.  
+  ## the values corresponding to the tag key "disk_device_tag_key" in the input metric.
   ## If this configuration is not provided, or has an empty list, no ebs volume is applied.
   ## If this configuration contains one entry and its value is "*", then all ebs volume for the instance are applied.
   # ebs_device_keys = ["/dev/xvda", "/dev/nvme0n1"]
@@ -71,12 +71,12 @@ const sampleConfig = `
 `
 
 const (
-	ec2InstanceTagKeyASG   = "aws:autoscaling:groupName"
-	cwDimensionASG         = "AutoScalingGroupName"
-	mdKeyInstanceId        = "InstanceId"
-	mdKeyImageId           = "ImageId"
-	mdKeyInstaneType       = "InstanceType"
-	ebsVolumeId            = "EBSVolumeId"
+	ec2InstanceTagKeyASG = "aws:autoscaling:groupName"
+	cwDimensionASG       = "AutoScalingGroupName"
+	mdKeyInstanceId      = "InstanceId"
+	mdKeyImageId         = "ImageId"
+	mdKeyInstaneType     = "InstanceType"
+	ebsVolumeId          = "EBSVolumeId"
 )
 
 var (
@@ -509,13 +509,13 @@ func sleepUntilHostJitter(max time.Duration) {
 
 // init adds this plugin to the framework's "processors" registry
 func init() {
-	mdCredentialConfig := &internalaws.CredentialConfig{}
-	mdConfigProvider := mdCredentialConfig.Credentials()
-	ec2Provider := func(ec2CredentialConfig *internalaws.CredentialConfig) ec2iface.EC2API {
-		ec2ConfigProvider := ec2CredentialConfig.Credentials()
-		return ec2.New(ec2ConfigProvider)
-	}
 	processors.Add("ec2tagger", func() telegraf.Processor {
+		mdCredentialConfig := &internalaws.CredentialConfig{}
+		mdConfigProvider := mdCredentialConfig.Credentials()
+		ec2Provider := func(ec2CredentialConfig *internalaws.CredentialConfig) ec2iface.EC2API {
+			ec2ConfigProvider := ec2CredentialConfig.Credentials()
+			return ec2.New(ec2ConfigProvider)
+		}
 		return &Tagger{
 			ec2metadata: ec2metadata.New(mdConfigProvider),
 			ec2Provider: ec2Provider,
