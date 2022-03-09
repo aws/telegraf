@@ -1,3 +1,4 @@
+*This is a fork of [telegraf](https://github.com/influxdata/telegraf/) project*
 
 # Telegraf
 
