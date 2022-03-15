@@ -21,6 +21,13 @@ type Initializer interface {
 	Init() error
 }
 
+// Stopper is an interface that plugin types:
+// Processors, and Aggregators can optionally implement to release the resources the plugins are using
+type Stopper interface {
+	// Stop performs one time resources release of the processor and aggregator plugins
+	Stop() error
+}
+
 // PluginDescriber contains the functions all plugins must implement to describe
 // themselves to Telegraf. Note that all plugins may define a logger that is
 // not part of the interface, but will receive an injected logger if it's set.

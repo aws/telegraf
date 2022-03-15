@@ -181,7 +181,7 @@ var sampleConfig = `
 
 // WriteFactory function provides a way to mock the client instantiation for testing purposes.
 var WriteFactory = func(credentialConfig *internalaws.CredentialConfig) (WriteClient, error) {
-	cfg, err := credentialConfig.Credentials()
+	cfg := credentialConfig.Credentials()
 	if err != nil {
 		return &timestreamwrite.Client{}, err
 	}

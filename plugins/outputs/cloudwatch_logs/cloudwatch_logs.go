@@ -189,7 +189,7 @@ func (c *CloudWatchLogs) Connect() error {
 	var logGroupsOutput = &cloudwatchlogs.DescribeLogGroupsOutput{NextToken: &dummyToken}
 	var err error
 
-	cfg, err := c.CredentialConfig.Credentials()
+	cfg := c.CredentialConfig.Credentials()
 	if err != nil {
 		return err
 	}

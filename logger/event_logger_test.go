@@ -96,5 +96,5 @@ func prepareLogger(t *testing.T) {
 	eventLog, err := eventlog.Open("telegraf")
 	require.NoError(t, err)
 	require.NotNil(t, eventLog)
-	registerLogger(LogTargetEventlog, &eventLoggerCreator{logger: eventLog})
+	RegisterLogger(LogTargetEventlog, &eventLoggerCreator{logger: eventLog})
 }

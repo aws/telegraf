@@ -136,7 +136,7 @@ func TestLogTargetSettings(t *testing.T) {
 func BenchmarkTelegrafLogWrite(b *testing.B) {
 	var msg = []byte("test")
 	var buf bytes.Buffer
-	w, err := newTelegrafWriter(&buf, LogConfig{})
+	w, err := NewTelegrafWriter(&buf, LogConfig{})
 	if err != nil {
 		panic("Unable to create log writer.")
 	}

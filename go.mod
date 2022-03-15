@@ -164,6 +164,7 @@ require (
 	github.com/apache/arrow/go/arrow v0.0.0-20211006091945-a69884db78f4 // indirect
 	github.com/aristanetworks/glog v0.0.0-20191112221043-67e8567f59f3 // indirect
 	github.com/armon/go-metrics v0.3.3 // indirect
+	github.com/aws/aws-sdk-go v1.38.3
 	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.5.3 // indirect
 	github.com/awslabs/kinesis-aggregation/go v0.0.0-20210630091500-54e17340d32f // indirect
 	github.com/bitly/go-hostpool v0.1.0 // indirect
