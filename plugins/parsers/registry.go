@@ -178,6 +178,15 @@ type JSONV2Config struct {
 	json_v2.Config
 }
 
+type parserCreator func(config *Config)(Parser, error)
+var parserRegistry map[string]parserCreator
+func RegisterParser(name string, creator parserCreator) {
+	if parserRegistry == nil {
+		parserRegistry = make(map[string]parserCreator)
+	}
+	parserRegistry[name] = creator
+}
+
 // NewParser returns a Parser interface based on the given config.
 func NewParser(config *Config) (Parser, error) {
 	var err error
@@ -280,6 +289,9 @@ func NewParser(config *Config) (Parser, error) {
 	case "json_v2":
 		parser, err = NewJSONPathParser(config.JSONV2Config)
 	default:
+		if pc, ok:= parserRegistry[config.DataFormat]; ok {
+			return pc(config)
+		}
 		err = fmt.Errorf("Invalid data format: %s", config.DataFormat)
 	}
 	return parser, err
