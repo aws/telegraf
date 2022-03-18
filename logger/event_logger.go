@@ -60,4 +60,5 @@ func RegisterEventLogger(name string) error {
 
 	RegisterLogger(LogTargetEventlog, &eventLoggerCreator{logger: eventLog})
 	return nil
+
 }

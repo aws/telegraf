@@ -56,6 +56,7 @@ func RegisterLogger(name string, loggerCreator LoggerCreator) {
 	loggerRegistry[name] = loggerCreator
 }
 
+
 type telegrafLog struct {
 	writer         io.Writer
 	internalWriter io.Writer

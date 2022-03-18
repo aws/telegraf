@@ -41,6 +41,7 @@ type PluginDescriber interface {
 }
 
 // Logger defines an plugin-related interface for logging.
+
 type Logger interface {
 	// Errorf logs an error message, patterned after log.Printf.
 	Errorf(format string, args ...interface{})

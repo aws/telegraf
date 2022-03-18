@@ -94,6 +94,16 @@ func (r *RunningAggregator) Init() error {
 	return nil
 }
 
+func (r *RunningAggregator) Stop() error {
+	if p, ok := r.Aggregator.(telegraf.Stopper); ok {
+		err := p.Stop()
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func (r *RunningAggregator) Period() time.Duration {
 	return r.Config.Period
 }

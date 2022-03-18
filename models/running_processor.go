@@ -70,6 +70,7 @@ func (rp *RunningProcessor) LogName() string {
 	return logName("processors", rp.Config.Name, rp.Config.Alias)
 }
 
+
 func (rp *RunningProcessor) MakeMetric(metric telegraf.Metric) telegraf.Metric {
 	return metric
 }

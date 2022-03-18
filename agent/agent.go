@@ -886,6 +886,7 @@ func (a *Agent) test(ctx context.Context, wait time.Duration, outputC chan<- tel
 		return err
 	}
 
+
 	startTime := time.Now()
 
 	next := outputC

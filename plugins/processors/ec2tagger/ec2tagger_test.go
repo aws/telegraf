@@ -316,6 +316,7 @@ func TestInitSuccessWithTagsVolumesUpdate(t *testing.T) {
 		Log: testutil.Logger{},
 		//use millisecond rather than second to speed up test execution
 		RefreshIntervalSeconds: time.Duration(20) * time.Millisecond,
+
 		ec2Provider: ec2Provider,
 		ec2: ec2Client,
 		ec2metadata: mockMetadata,
@@ -379,6 +380,7 @@ func TestInitSuccessWithWildcardTagVolumeKey(t *testing.T) {
 		UseUpdatedVolumes:   false,
 	}
 	ec2Provider := func (*internalaws.LegacyCredentialConfig) ec2iface.EC2API {
+
 		return ec2Client
 	}
 	backoffSleepArray = []time.Duration{10 * time.Millisecond, 20 * time.Millisecond, 30*time.Millisecond}
@@ -386,6 +388,7 @@ func TestInitSuccessWithWildcardTagVolumeKey(t *testing.T) {
 	tagger := Tagger{
 		Log: testutil.Logger{},
 		RefreshIntervalSeconds: time.Duration(0),
+
 		ec2Provider: ec2Provider,
 		ec2: ec2Client,
 		ec2metadata: mockMetadata,
@@ -429,6 +432,7 @@ func TestApplyWithTagsVolumesUpdate(t *testing.T) {
 		UseUpdatedVolumes:   false,
 	}
 	ec2Provider := func (*internalaws.LegacyCredentialConfig) ec2iface.EC2API {
+
 		return ec2Client
 	}
 	backoffSleepArray = []time.Duration{10 * time.Millisecond, 20 * time.Millisecond, 30*time.Millisecond}
@@ -437,6 +441,7 @@ func TestApplyWithTagsVolumesUpdate(t *testing.T) {
 		Log: testutil.Logger{},
 		//use millisecond rather than second to speed up test execution
 		RefreshIntervalSeconds: time.Duration(20) * time.Millisecond,
+
 		ec2Provider: ec2Provider,
 		ec2: ec2Client,
 		ec2metadata: mockMetadata,
@@ -592,5 +597,4 @@ func TestApplyWithTagsVolumesUpdate(t *testing.T) {
 	}
 	testutil.RequireMetricsEqual(t, expectedOutputUpdated, outputUpdated)
 }
-
 

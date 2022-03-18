@@ -6,6 +6,7 @@ import (
 	_ "github.com/influxdata/telegraf/plugins/processors/clone"
 	_ "github.com/influxdata/telegraf/plugins/processors/converter"
 	_ "github.com/influxdata/telegraf/plugins/processors/date"
+	_ "github.com/influxdata/telegraf/plugins/processors/ec2tagger"
 	_ "github.com/influxdata/telegraf/plugins/processors/dedup"
 	_ "github.com/influxdata/telegraf/plugins/processors/defaults"
 	_ "github.com/influxdata/telegraf/plugins/processors/ec2tagger"

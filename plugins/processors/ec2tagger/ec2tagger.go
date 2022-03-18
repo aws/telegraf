@@ -14,6 +14,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
 	"github.com/influxdata/telegraf"
 	internalaws "github.com/influxdata/telegraf/config/aws"
+
+	"github.com/influxdata/telegraf/internal"
 	"github.com/influxdata/telegraf/plugins/processors"
 )
 
@@ -388,6 +390,7 @@ func (t *Tagger) refreshLoopToUpdateTagsAndVolumes() {
 		stopAfterFirstSuccess = true
 		refreshInterval = defaultRefreshInterval
 	} else if t.RefreshIntervalSeconds.Seconds() > 0 {
+
 		//customer wants to update the tags/volumes with the given refresh interval
 		needRefresh = true
 	}
@@ -512,6 +515,7 @@ func init() {
 	mdConfigProvider := mdCredentialConfig.LegacyCredentials()
 	ec2Provider := func(ec2CredentialConfig *internalaws.LegacyCredentialConfig) ec2iface.EC2API {
 		ec2ConfigProvider := ec2CredentialConfig.LegacyCredentials()
+
 		return ec2.New(ec2ConfigProvider)
 	}
 	processors.Add("ec2tagger", func() telegraf.Processor {
@@ -521,3 +525,4 @@ func init() {
 		}
 	})
 }
+

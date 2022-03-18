@@ -74,3 +74,4 @@ The IAM User or Role making the calls must have permissions to call the EC2 Desc
 ### Filters:
 
 Processor plugins support the standard tag filter settings just like everything else.
+
