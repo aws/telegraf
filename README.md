@@ -1,4 +1,4 @@
-*This is a fork of [telegraf](https://github.com/influxdata/telegraf/) project*
+# This is a fork of [telegraf](https://github.com/influxdata/telegraf/) project
 
 # Telegraf [![Circle CI](https://circleci.com/gh/influxdata/telegraf.svg?style=svg)](https://circleci.com/gh/influxdata/telegraf) [![Docker pulls](https://img.shields.io/docker/pulls/library/telegraf.svg)](https://hub.docker.com/_/telegraf/)
 

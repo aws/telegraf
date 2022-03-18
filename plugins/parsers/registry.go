@@ -187,15 +187,6 @@ func RegisterParser(name string, creator parserCreator) {
 	parserRegistry[name] = creator
 }
 
-type parserCreator func(config *Config)(Parser, error)
-var parserRegistry map[string]parserCreator
-func RegisterParser(name string, creator parserCreator) {
-	if parserRegistry == nil {
-		parserRegistry = make(map[string]parserCreator)
-	}
-	parserRegistry[name] = creator
-}
-
 // NewParser returns a Parser interface based on the given config.
 func NewParser(config *Config) (Parser, error) {
 	var err error
