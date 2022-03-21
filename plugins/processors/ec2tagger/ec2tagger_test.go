@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/influxdata/telegraf"
 	internalaws "github.com/influxdata/telegraf/config/aws"
-	"github.com/influxdata/telegraf/internal"
 	"time"
 
 	"testing"
@@ -115,8 +114,8 @@ var volumeId1 = "vol-0303a1cc896c42d28"
 var volumeAttachment1 = ec2.VolumeAttachment{Device:&device1, VolumeId:&volumeId1}
 var availabilityZone = "us-east-1a"
 var volume1 = ec2.Volume{
-		Attachments:[]*ec2.VolumeAttachment{&volumeAttachment1},
-		AvailabilityZone: &availabilityZone,
+	Attachments:[]*ec2.VolumeAttachment{&volumeAttachment1},
+	AvailabilityZone: &availabilityZone,
 }
 
 var device2 = "/dev/xvdf"
@@ -256,14 +255,14 @@ func TestInitSuccessWithNoTagsVolumesUpdate(t *testing.T) {
 		volumesPartialLimit: 0,
 		UseUpdatedVolumes:   false,
 	}
-	ec2Provider := func (*internalaws.CredentialConfig) ec2iface.EC2API {
+	ec2Provider := func (*internalaws.LegacyCredentialConfig) ec2iface.EC2API {
 		return ec2Client
 	}
 	backoffSleepArray = []time.Duration{10 * time.Millisecond, 20 * time.Millisecond, 30*time.Millisecond}
 	defaultRefreshInterval = 50*time.Millisecond
 	tagger := Tagger{
 		Log: testutil.Logger{},
-		RefreshIntervalSeconds: internal.Duration{Duration: 0},
+		RefreshIntervalSeconds: time.Duration(0),
 		ec2Provider: ec2Provider,
 		ec2: ec2Client,
 		ec2metadata: mockMetadata,
@@ -308,7 +307,7 @@ func TestInitSuccessWithTagsVolumesUpdate(t *testing.T) {
 		volumesPartialLimit: 0,
 		UseUpdatedVolumes:   false,
 	}
-	ec2Provider := func (*internalaws.CredentialConfig) ec2iface.EC2API {
+	ec2Provider := func (*internalaws.LegacyCredentialConfig) ec2iface.EC2API {
 		return ec2Client
 	}
 	backoffSleepArray = []time.Duration{10 * time.Millisecond, 20 * time.Millisecond, 30*time.Millisecond}
@@ -316,7 +315,8 @@ func TestInitSuccessWithTagsVolumesUpdate(t *testing.T) {
 	tagger := Tagger{
 		Log: testutil.Logger{},
 		//use millisecond rather than second to speed up test execution
-		RefreshIntervalSeconds: internal.Duration{Duration: 20*time.Millisecond},
+		RefreshIntervalSeconds: time.Duration(20) * time.Millisecond,
+
 		ec2Provider: ec2Provider,
 		ec2: ec2Client,
 		ec2metadata: mockMetadata,
@@ -379,14 +379,16 @@ func TestInitSuccessWithWildcardTagVolumeKey(t *testing.T) {
 		volumesPartialLimit: 0,
 		UseUpdatedVolumes:   false,
 	}
-	ec2Provider := func (*internalaws.CredentialConfig) ec2iface.EC2API {
+	ec2Provider := func (*internalaws.LegacyCredentialConfig) ec2iface.EC2API {
+
 		return ec2Client
 	}
 	backoffSleepArray = []time.Duration{10 * time.Millisecond, 20 * time.Millisecond, 30*time.Millisecond}
 	defaultRefreshInterval = 50*time.Millisecond
 	tagger := Tagger{
 		Log: testutil.Logger{},
-		RefreshIntervalSeconds: internal.Duration{Duration: 0},
+		RefreshIntervalSeconds: time.Duration(0),
+
 		ec2Provider: ec2Provider,
 		ec2: ec2Client,
 		ec2metadata: mockMetadata,
@@ -429,7 +431,8 @@ func TestApplyWithTagsVolumesUpdate(t *testing.T) {
 		volumesPartialLimit: 0,
 		UseUpdatedVolumes:   false,
 	}
-	ec2Provider := func (*internalaws.CredentialConfig) ec2iface.EC2API {
+	ec2Provider := func (*internalaws.LegacyCredentialConfig) ec2iface.EC2API {
+
 		return ec2Client
 	}
 	backoffSleepArray = []time.Duration{10 * time.Millisecond, 20 * time.Millisecond, 30*time.Millisecond}
@@ -437,7 +440,8 @@ func TestApplyWithTagsVolumesUpdate(t *testing.T) {
 	tagger := Tagger{
 		Log: testutil.Logger{},
 		//use millisecond rather than second to speed up test execution
-		RefreshIntervalSeconds: internal.Duration{Duration: 20*time.Millisecond},
+		RefreshIntervalSeconds: time.Duration(20) * time.Millisecond,
+
 		ec2Provider: ec2Provider,
 		ec2: ec2Client,
 		ec2metadata: mockMetadata,
@@ -593,6 +597,4 @@ func TestApplyWithTagsVolumesUpdate(t *testing.T) {
 	}
 	testutil.RequireMetricsEqual(t, expectedOutputUpdated, outputUpdated)
 }
-
-
 

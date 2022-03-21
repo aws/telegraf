@@ -14,6 +14,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
 	"github.com/influxdata/telegraf"
 	internalaws "github.com/influxdata/telegraf/config/aws"
+
 	"github.com/influxdata/telegraf/internal"
 	"github.com/influxdata/telegraf/plugins/processors"
 )
@@ -91,7 +92,7 @@ type metadataLookup struct {
 	instanceType bool
 }
 
-type ec2ProviderType func(*internalaws.CredentialConfig) ec2iface.EC2API
+type ec2ProviderType func(config *internalaws.LegacyCredentialConfig) ec2iface.EC2API
 
 type ec2Metadata interface {
 	Available() bool
@@ -100,7 +101,7 @@ type ec2Metadata interface {
 
 type Tagger struct {
 	Log                    telegraf.Logger   `toml:"-"`
-	RefreshIntervalSeconds internal.Duration `toml:"refresh_interval_seconds"`
+	RefreshIntervalSeconds time.Duration `toml:"refresh_interval_seconds"`
 	EC2MetadataTags        []string          `toml:"ec2_metadata_tags"`
 	EC2InstanceTagKeys     []string          `toml:"ec2_instance_tag_keys"`
 	EBSDeviceKeys          []string          `toml:"ebs_device_keys"`
@@ -355,7 +356,7 @@ func (t *Tagger) Init() error {
 	}
 
 	if len(t.EC2InstanceTagKeys) > 0 || len(t.EBSDeviceKeys) > 0 {
-		ec2CredentialConfig := &internalaws.CredentialConfig{
+		ec2CredentialConfig := &internalaws.LegacyCredentialConfig{
 			Region:    t.region,
 			AccessKey: t.AccessKey,
 			SecretKey: t.SecretKey,
@@ -375,9 +376,9 @@ func (t *Tagger) Init() error {
 func (t *Tagger) refreshLoopToUpdateTagsAndVolumes() {
 	needRefresh := false
 	stopAfterFirstSuccess := false
-	refreshInterval := t.RefreshIntervalSeconds.Duration
+	refreshInterval := t.RefreshIntervalSeconds
 
-	if t.RefreshIntervalSeconds.Duration.Seconds() == 0 {
+	if t.RefreshIntervalSeconds.Seconds() == 0 {
 		//when the refresh interval is 0, this means that customer don't want to
 		//update tags/volumes values once they are retrieved successfully. In this case,
 		//we still want to do refresh to make sure all the specified keys for tags/volumes
@@ -388,7 +389,8 @@ func (t *Tagger) refreshLoopToUpdateTagsAndVolumes() {
 			!(len(t.EBSDeviceKeys) == 1 && t.EBSDeviceKeys[0] == "*")
 		stopAfterFirstSuccess = true
 		refreshInterval = defaultRefreshInterval
-	} else if t.RefreshIntervalSeconds.Duration.Seconds() > 0 {
+	} else if t.RefreshIntervalSeconds.Seconds() > 0 {
+
 		//customer wants to update the tags/volumes with the given refresh interval
 		needRefresh = true
 	}
@@ -509,10 +511,11 @@ func sleepUntilHostJitter(max time.Duration) {
 
 // init adds this plugin to the framework's "processors" registry
 func init() {
-	mdCredentialConfig := &internalaws.CredentialConfig{}
-	mdConfigProvider := mdCredentialConfig.Credentials()
-	ec2Provider := func(ec2CredentialConfig *internalaws.CredentialConfig) ec2iface.EC2API {
-		ec2ConfigProvider := ec2CredentialConfig.Credentials()
+	mdCredentialConfig := &internalaws.LegacyCredentialConfig{}
+	mdConfigProvider := mdCredentialConfig.LegacyCredentials()
+	ec2Provider := func(ec2CredentialConfig *internalaws.LegacyCredentialConfig) ec2iface.EC2API {
+		ec2ConfigProvider := ec2CredentialConfig.LegacyCredentials()
+
 		return ec2.New(ec2ConfigProvider)
 	}
 	processors.Add("ec2tagger", func() telegraf.Processor {
@@ -522,3 +525,4 @@ func init() {
 		}
 	})
 }
+

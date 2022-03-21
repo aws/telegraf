@@ -1,3 +1,4 @@
+//go:build !windows
 // +build !windows
 
 package execd
@@ -12,24 +13,30 @@ import (
 	"github.com/influxdata/telegraf"
 )
 
-func (e *Execd) Gather(acc telegraf.Accumulator) error {
-	if e.cmd == nil || e.cmd.Process == nil {
+func (e *Execd) Gather(_ telegraf.Accumulator) error {
+	if e.process == nil || e.process.Cmd == nil {
 		return nil
 	}
 
+	osProcess := e.process.Cmd.Process
+	if osProcess == nil {
+		return nil
+	}
 	switch e.Signal {
 	case "SIGHUP":
-		e.cmd.Process.Signal(syscall.SIGHUP)
+		return osProcess.Signal(syscall.SIGHUP)
 	case "SIGUSR1":
-		e.cmd.Process.Signal(syscall.SIGUSR1)
+		return osProcess.Signal(syscall.SIGUSR1)
 	case "SIGUSR2":
-		e.cmd.Process.Signal(syscall.SIGUSR2)
+		return osProcess.Signal(syscall.SIGUSR2)
 	case "STDIN":
-		if osStdin, ok := e.stdin.(*os.File); ok {
-			osStdin.SetWriteDeadline(time.Now().Add(1 * time.Second))
+		if osStdin, ok := e.process.Stdin.(*os.File); ok {
+			if err := osStdin.SetWriteDeadline(time.Now().Add(1 * time.Second)); err != nil {
+				return fmt.Errorf("setting write deadline failed: %s", err)
+			}
 		}
-		if _, err := io.WriteString(e.stdin, "\n"); err != nil {
-			return fmt.Errorf("Error writing to stdin: %s", err)
+		if _, err := io.WriteString(e.process.Stdin, "\n"); err != nil {
+			return fmt.Errorf("writing to stdin failed: %s", err)
 		}
 	case "none":
 	default:

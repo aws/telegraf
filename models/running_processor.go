@@ -10,7 +10,7 @@ import (
 type RunningProcessor struct {
 	sync.Mutex
 	log       telegraf.Logger
-	Processor telegraf.Processor
+	Processor telegraf.StreamingProcessor
 	Config    *ProcessorConfig
 }
 
@@ -20,7 +20,7 @@ func (rp RunningProcessors) Len() int           { return len(rp) }
 func (rp RunningProcessors) Swap(i, j int)      { rp[i], rp[j] = rp[j], rp[i] }
 func (rp RunningProcessors) Less(i, j int) bool { return rp[i].Config.Order < rp[j].Config.Order }
 
-// FilterConfig containing a name and filter
+// ProcessorConfig containing a name and filter
 type ProcessorConfig struct {
 	Name   string
 	Alias  string
@@ -28,7 +28,7 @@ type ProcessorConfig struct {
 	Filter Filter
 }
 
-func NewRunningProcessor(processor telegraf.Processor, config *ProcessorConfig) *RunningProcessor {
+func NewRunningProcessor(processor telegraf.StreamingProcessor, config *ProcessorConfig) *RunningProcessor {
 	tags := map[string]string{"processor": config.Name}
 	if config.Alias != "" {
 		tags["alias"] = config.Alias
@@ -39,7 +39,7 @@ func NewRunningProcessor(processor telegraf.Processor, config *ProcessorConfig) 
 	logger.OnErr(func() {
 		processErrorsRegister.Incr(1)
 	})
-	setLogIfExist(processor, logger)
+	SetLoggerOnPlugin(processor, logger)
 
 	return &RunningProcessor{
 		Processor: processor,
@@ -52,17 +52,8 @@ func (rp *RunningProcessor) metricFiltered(metric telegraf.Metric) {
 	metric.Drop()
 }
 
-func containsMetric(item telegraf.Metric, metrics []telegraf.Metric) bool {
-	for _, m := range metrics {
-		if item == m {
-			return true
-		}
-	}
-	return false
-}
-
-func (r *RunningProcessor) Init() error {
-	if p, ok := r.Processor.(telegraf.Initializer); ok {
+func (rp *RunningProcessor) Init() error {
+	if p, ok := rp.Processor.(telegraf.Initializer); ok {
 		err := p.Init()
 		if err != nil {
 			return err
@@ -71,44 +62,40 @@ func (r *RunningProcessor) Init() error {
 	return nil
 }
 
-func (r *RunningProcessor) Stop() error {
-	if p, ok := r.Processor.(telegraf.Stopper); ok {
-		err := p.Stop()
-		if err != nil {
-			return err
-		}
-	}
-	return nil
+func (rp *RunningProcessor) Log() telegraf.Logger {
+	return rp.log
 }
 
-func (rp *RunningProcessor) Apply(in ...telegraf.Metric) []telegraf.Metric {
-	rp.Lock()
-	defer rp.Unlock()
-
-	ret := []telegraf.Metric{}
-
-	for _, metric := range in {
-		// In processors when a filter selects a metric it is sent through the
-		// processor.  Otherwise the metric continues downstream unmodified.
-		if ok := rp.Config.Filter.Select(metric); !ok {
-			ret = append(ret, metric)
-			continue
-		}
-
-		rp.Config.Filter.Modify(metric)
-		if len(metric.FieldList()) == 0 {
-			rp.metricFiltered(metric)
-			continue
-		}
-
-		// This metric should pass through the filter, so call the filter Apply
-		// function and append results to the output slice.
-		ret = append(ret, rp.Processor.Apply(metric)...)
-	}
-
-	return ret
+func (rp *RunningProcessor) LogName() string {
+	return logName("processors", rp.Config.Name, rp.Config.Alias)
 }
 
-func (r *RunningProcessor) Log() telegraf.Logger {
-	return r.log
+
+func (rp *RunningProcessor) MakeMetric(metric telegraf.Metric) telegraf.Metric {
+	return metric
+}
+
+func (rp *RunningProcessor) Start(acc telegraf.Accumulator) error {
+	return rp.Processor.Start(acc)
+}
+
+func (rp *RunningProcessor) Add(m telegraf.Metric, acc telegraf.Accumulator) error {
+	if ok := rp.Config.Filter.Select(m); !ok {
+		// pass downstream
+		acc.AddMetric(m)
+		return nil
+	}
+
+	rp.Config.Filter.Modify(m)
+	if len(m.FieldList()) == 0 {
+		// drop metric
+		rp.metricFiltered(m)
+		return nil
+	}
+
+	return rp.Processor.Add(m, acc)
+}
+
+func (rp *RunningProcessor) Stop() {
+	rp.Processor.Stop()
 }

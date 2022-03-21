@@ -8,7 +8,10 @@ use the `metric_version = 2` option in order to properly round trip metrics.
 not be correct if the metric spans multiple batches.  This issue can be
 somewhat, but not fully, mitigated by using outputs that support writing in
 "batch format".  When using histogram and summary types, it is recommended to
-use only the `prometheus_client` output.
+use only the `prometheus_client` output. Histogram and Summary types
+also update their expiration time based on the most recently received data.
+If incoming metrics stop updating specific buckets or quantiles but continue
+reporting others every bucket/quantile will continue to exist.
 
 ## Configuration
 
@@ -35,18 +38,33 @@ use only the `prometheus_client` output.
   data_format = "prometheus"
 ```
 
-### Example
+### Metrics
 
-**Example Input**
-```
+A Prometheus metric is created for each integer, float, boolean or unsigned
+field.  Boolean values are converted to *1.0* for true and *0.0* for false.
+
+The Prometheus metric names are produced by joining the measurement name with
+the field key.  In the special case where the measurement name is `prometheus`
+it is not included in the final metric name.
+
+Prometheus labels are produced for each tag.
+
+**Note:** String fields are ignored and do not produce Prometheus metrics.
+
+## Example
+
+### Example Input
+
+```text
 cpu,cpu=cpu0 time_guest=8022.6,time_system=26145.98,time_user=92512.89 1574317740000000000
 cpu,cpu=cpu1 time_guest=8097.88,time_system=25223.35,time_user=96519.58 1574317740000000000
 cpu,cpu=cpu2 time_guest=7386.28,time_system=24870.37,time_user=95631.59 1574317740000000000
 cpu,cpu=cpu3 time_guest=7434.19,time_system=24843.71,time_user=93753.88 1574317740000000000
 ```
 
-**Example Output**
-```
+### Example Output
+
+```text
 # HELP cpu_time_guest Telegraf collected metric
 # TYPE cpu_time_guest counter
 cpu_time_guest{cpu="cpu0"} 9582.54
