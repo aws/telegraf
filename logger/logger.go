@@ -49,7 +49,8 @@ type LoggerCreator interface {
 
 var loggerRegistry map[string]LoggerCreator
 
-func registerLogger(name string, loggerCreator LoggerCreator) {
+// RegisterLogger Make func public for CloudWatch Agent to consume
+func RegisterLogger(name string, loggerCreator LoggerCreator) {
 	if loggerRegistry == nil {
 		loggerRegistry = make(map[string]LoggerCreator)
 	}
@@ -89,8 +90,9 @@ func (t *telegrafLog) Close() error {
 	return closer.Close()
 }
 
-// newTelegrafWriter returns a logging-wrapped writer.
-func newTelegrafWriter(w io.Writer, c LogConfig) (io.Writer, error) {
+// NewTelegrafWriter returns a logging-wrapped writer.
+// Make func public for CloudWatch Agent to consume
+func NewTelegrafWriter(w io.Writer, c LogConfig) (io.Writer, error) {
 	timezoneName := c.LogWithTimezone
 
 	if strings.ToLower(timezoneName) == "local" {
@@ -139,7 +141,7 @@ func (t *telegrafLogCreator) CreateLogger(cfg LogConfig) (io.Writer, error) {
 		writer = defaultWriter
 	}
 
-	return newTelegrafWriter(writer, cfg)
+	return NewTelegrafWriter(writer, cfg)
 }
 
 // Keep track what is actually set as a log output, because log package doesn't provide a getter.
@@ -176,7 +178,7 @@ func newLogWriter(cfg LogConfig) io.Writer {
 
 func init() {
 	tlc := &telegrafLogCreator{}
-	registerLogger("", tlc)
-	registerLogger(LogTargetStderr, tlc)
-	registerLogger(LogTargetFile, tlc)
+	RegisterLogger("", tlc)
+	RegisterLogger(LogTargetStderr, tlc)
+	RegisterLogger(LogTargetFile, tlc)
 }
