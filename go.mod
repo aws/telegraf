@@ -128,7 +128,7 @@ require (
 	github.com/stretchr/testify v1.7.2
 	github.com/tbrandon/mbserver v0.0.0-20170611213546-993e1772cc62
 	github.com/testcontainers/testcontainers-go v0.13.0
-	github.com/tidwall/gjson v1.10.2
+	github.com/tidwall/gjson v1.14.3
 	github.com/tinylib/msgp v1.1.6
 	github.com/vapourismo/knx-go v0.0.0-20211128234507-8198fa17db36
 	github.com/vjeantet/grok v1.0.1
@@ -384,4 +384,3 @@ replace github.com/riemann/riemann-go-client => github.com/dstrand1/riemann-go-c
 
 // replace gopsutil with local copy with LVM related change for temorory fix
 replace github.com/shirou/gopsutil/v3 => ./patches/gopsutil/v3
-
