@@ -65,7 +65,7 @@ require (
 	github.com/golang-jwt/jwt/v4 v4.2.0
 	github.com/golang/geo v0.0.0-20190916061304-5b978397cfec
 	github.com/golang/snappy v0.0.4
-	github.com/google/go-cmp v0.5.8
+	github.com/google/go-cmp v0.5.9
 	github.com/google/go-github/v32 v32.1.0
 	github.com/gopcua/opcua v0.3.1
 	github.com/gophercloud/gophercloud v0.24.0
@@ -145,7 +145,7 @@ require (
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad
+	golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab
 	golang.org/x/text v0.3.7
 	// golang.zx2c4.com/wireguard/wgctrl v0.0.0-20211230205640-daad0b7ba671
 	gonum.org/v1/gonum v0.9.3
@@ -161,7 +161,7 @@ require (
 	k8s.io/api v0.23.4
 	k8s.io/apimachinery v0.23.4
 	k8s.io/client-go v0.23.3
-	modernc.org/sqlite v1.10.8
+	modernc.org/sqlite v1.20.2
 )
 
 require (
@@ -232,6 +232,7 @@ require (
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
+	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/eapache/go-resiliency v1.2.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
@@ -284,7 +285,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-ieproxy v0.0.1 // indirect
-	github.com/mattn/go-isatty v0.0.14 // indirect
+	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/minio/highwayhash v1.0.2 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.4.2 // indirect
@@ -357,14 +358,15 @@ require (
 	k8s.io/klog/v2 v2.30.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20211115234752-e816edb12b65 // indirect
 	k8s.io/utils v0.0.0-20211116205334-6203023598ed // indirect
-	modernc.org/cc/v3 v3.33.5 // indirect
-	modernc.org/ccgo/v3 v3.9.4 // indirect
-	modernc.org/libc v1.9.5 // indirect
-	modernc.org/mathutil v1.2.2 // indirect
-	modernc.org/memory v1.0.4 // indirect
-	modernc.org/opt v0.1.1 // indirect
-	modernc.org/strutil v1.1.0 // indirect
-	modernc.org/token v1.0.0 // indirect
+	lukechampine.com/uint128 v1.2.0 // indirect
+	modernc.org/cc/v3 v3.40.0 // indirect
+	modernc.org/ccgo/v3 v3.16.13 // indirect
+	modernc.org/libc v1.22.2 // indirect
+	modernc.org/mathutil v1.5.0 // indirect
+	modernc.org/memory v1.4.0 // indirect
+	modernc.org/opt v0.1.3 // indirect
+	modernc.org/strutil v1.1.3 // indirect
+	modernc.org/token v1.0.1 // indirect
 	sigs.k8s.io/json v0.0.0-20211020170558-c049b76a60c6 // indirect
 	sigs.k8s.io/structured-merge-diff/v4 v4.2.1 // indirect
 	sigs.k8s.io/yaml v1.2.0 // indirect
@@ -384,4 +386,3 @@ replace github.com/riemann/riemann-go-client => github.com/dstrand1/riemann-go-c
 
 // replace gopsutil with local copy with LVM related change for temorory fix
 replace github.com/shirou/gopsutil/v3 => ./patches/gopsutil/v3
-
