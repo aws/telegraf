@@ -22,8 +22,8 @@ require (
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.1483
 	github.com/amir/raidman v0.0.0-20170415203553-1ccc43bfb9c9
 	github.com/antchfx/jsonquery v1.1.5
-	github.com/antchfx/xmlquery v1.3.9
-	github.com/antchfx/xpath v1.2.0
+	github.com/antchfx/xmlquery v1.3.14
+	github.com/antchfx/xpath v1.2.2
 	github.com/apache/thrift v0.15.0
 	github.com/aristanetworks/goarista v0.0.0-20190325233358-a123909ec740
 	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
@@ -142,11 +142,11 @@ require (
 	go.opentelemetry.io/otel/metric v0.27.0
 	go.opentelemetry.io/otel/sdk/metric v0.27.0
 	go.starlark.net v0.0.0-20210406145628-7a1108eaa012
-	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
+	golang.org/x/net v0.5.0
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20220412211240-33da011f77ad
-	golang.org/x/text v0.3.7
+	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
+	golang.org/x/sys v0.4.0
+	golang.org/x/text v0.6.0
 	// golang.zx2c4.com/wireguard/wgctrl v0.0.0-20211230205640-daad0b7ba671
 	gonum.org/v1/gonum v0.9.3
 	google.golang.org/api v0.67.0
@@ -342,10 +342,10 @@ require (
 	go.uber.org/multierr v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd // indirect
 	golang.org/x/exp v0.0.0-20200513190911-00229845015e // indirect
-	golang.org/x/mod v0.5.0 // indirect
-	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
+	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
+	golang.org/x/term v0.4.0 // indirect
 	golang.org/x/time v0.0.0-20211116232009-f0f3c7e86c11 // indirect
-	golang.org/x/tools v0.1.6-0.20210726203631-07bc1bf47fb2 // indirect
+	golang.org/x/tools v0.1.12 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	gopkg.in/fsnotify.v1 v1.4.7 // indirect
@@ -384,4 +384,3 @@ replace github.com/riemann/riemann-go-client => github.com/dstrand1/riemann-go-c
 
 // replace gopsutil with local copy with LVM related change for temorory fix
 replace github.com/shirou/gopsutil/v3 => ./patches/gopsutil/v3
-
