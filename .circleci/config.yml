@@ -356,6 +356,7 @@ jobs:
           at: '/build'
       - run:
           command: |
+            echo "Holla"
             aws s3 sync /build/dist s3://dl.influxdata.com/telegraf/nightlies/ \
               --exclude "*" \
               --include "*.tar.gz" \
