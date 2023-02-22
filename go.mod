@@ -93,7 +93,7 @@ require (
 	github.com/kardianos/service v1.2.1
 	github.com/karrick/godirwalk v1.16.1
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51
-	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369
+	github.com/matttproud/golang_protobuf_extensions v1.0.4
 	github.com/mdlayher/apcupsd v0.0.0-20200608131503-2bf01da7bf1b
 	github.com/microsoft/ApplicationInsights-Go v0.4.4
 	github.com/miekg/dns v1.1.46
@@ -150,9 +150,9 @@ require (
 	// golang.zx2c4.com/wireguard/wgctrl v0.0.0-20211230205640-daad0b7ba671
 	gonum.org/v1/gonum v0.9.3
 	google.golang.org/api v0.67.0
-	google.golang.org/genproto v0.0.0-20220207164111-0872dc986b00
-	google.golang.org/grpc v1.44.0
-	google.golang.org/protobuf v1.27.1
+	google.golang.org/genproto v0.0.0-20220502173005-c8bf987b8c21
+	google.golang.org/grpc v1.47.0
+	google.golang.org/protobuf v1.28.0
 	gopkg.in/gorethink/gorethink.v3 v3.0.5
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/olivere/elastic.v5 v5.0.86
@@ -173,7 +173,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.5.3 // indirect
 	github.com/awslabs/kinesis-aggregation/go v0.0.0-20210630091500-54e17340d32f // indirect
 	github.com/bitly/go-hostpool v0.1.0 // indirect
-	github.com/containerd/containerd v1.6.8 // indirect
+	github.com/containerd/containerd v1.6.18 // indirect
 	github.com/couchbase/gomemcached v0.1.3 // indirect
 	github.com/couchbase/goutils v0.1.0 // indirect
 	github.com/goburrow/modbus v0.1.0 // indirect
@@ -207,8 +207,8 @@ require (
 	github.com/Azure/go-autorest/logger v0.2.1 // indirect
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
 	github.com/Azure/go-ntlmssp v0.0.0-20200615164410-66371956d46c // indirect
-	github.com/Microsoft/go-winio v0.5.1 // indirect
-	github.com/Microsoft/hcsshim v0.9.4 // indirect
+	github.com/Microsoft/go-winio v0.5.2 // indirect
+	github.com/Microsoft/hcsshim v0.9.6 // indirect
 	github.com/alecthomas/participle v0.4.1 // indirect
 	github.com/aws/aws-sdk-go v1.40.45 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.2.0 // indirect
@@ -226,7 +226,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.1.2 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/cloudflare/golz4 v0.0.0-20150217214814-ef862a3cdc58 // indirect
-	github.com/containerd/cgroups v1.0.3 // indirect
+	github.com/containerd/cgroups v1.0.4 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/devigned/tab v0.1.1 // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
