@@ -12,7 +12,7 @@ require (
 	github.com/Azure/azure-storage-queue-go v0.0.0-20191125232315-636801874cdd
 	github.com/Azure/go-autorest/autorest v0.11.24
 	github.com/Azure/go-autorest/autorest/adal v0.9.18
-	github.com/Azure/go-autorest/autorest/azure/auth v0.5.11
+	github.com/Azure/go-autorest/autorest/azure/auth v0.5.12
 	github.com/BurntSushi/toml v0.4.1
 	github.com/ClickHouse/clickhouse-go v1.5.4
 	github.com/Mellanox/rdmamap v0.0.0-20191106181932-7c3c4763a6ee
