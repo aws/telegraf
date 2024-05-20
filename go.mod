@@ -151,7 +151,7 @@ require (
 	google.golang.org/genproto v0.0.0-20231002182017-d307bd883b97
 	google.golang.org/genproto/googleapis/api v0.0.0-20231012201019-e917dd12ba7a
 	google.golang.org/grpc v1.59.0
-	google.golang.org/protobuf v1.31.0
+	google.golang.org/protobuf v1.34.1
 	gopkg.in/gorethink/gorethink.v3 v3.0.5
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/olivere/elastic.v5 v5.0.86
