@@ -2,6 +2,8 @@ package procstat
 
 import (
 	"fmt"
+	"github.com/influxdata/telegraf"
+	"github.com/influxdata/telegraf/metric"
 	"time"
 
 	"github.com/shirou/gopsutil/v3/cpu"
@@ -16,6 +18,7 @@ type Process interface {
 	MemoryInfo() (*process.MemoryInfoStat, error)
 	Name() (string, error)
 	MemoryMaps(bool) (*[]process.MemoryMapsStat, error)
+	Metric(string, *collectionConfig) telegraf.Metric
 	Cmdline() (string, error)
 	NumCtxSwitches() (*process.NumCtxSwitchesStat, error)
 	NumFDs() (int32, error)
@@ -75,4 +78,18 @@ func (p *Proc) Percent(_ time.Duration) (float64, error) {
 		return 0, fmt.Errorf("must call Percent twice to compute percent cpu")
 	}
 	return cpuPerc, err
+}
+
+func (p *Proc) Metric(prefix string, cfg *collectionConfig) telegraf.Metric {
+	if prefix != "" {
+		prefix += "_"
+	}
+
+	fields := make(map[string]interface{})
+
+	if cfg.features["mmap"] {
+		collectMemmap(p, prefix, fields)
+	}
+
+	return metric.New("procstat", p.tags, fields, time.Time{})
 }

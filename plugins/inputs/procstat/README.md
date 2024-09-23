@@ -57,11 +57,16 @@ Processes can be selected for monitoring using one of several methods:
   ## when processes have a short lifetime.
   # pid_tag = false
 
+  ## Properties to collect
+  ## Available option "mmap"
+  # properties = ["mmap"]
+
   ## Method to use when finding process IDs.  Can be one of 'pgrep', or
   ## 'native'.  The pgrep finder calls the pgrep executable in the PATH while
   ## the native finder performs the search directly in a manor dependent on the
   ## platform.  Default is 'pgrep'
   # pid_finder = "pgrep"
+
 ```
 
 ### Windows support
