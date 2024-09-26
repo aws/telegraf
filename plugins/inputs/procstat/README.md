@@ -60,8 +60,7 @@ Processes can be selected for monitoring using one of several methods:
   ## Properties to collect
   ## Available option "mmap"
   # properties = ["mmap"]
-  ## Available options are "cpu", "limits", "memory", "mmap"
-  # properties = ["cpu", "limits", "memory", "mmap"]
+
 
   ## Method to use when finding process IDs.  Can be one of 'pgrep', or
   ## 'native'.  The pgrep finder calls the pgrep executable in the PATH while
