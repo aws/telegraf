@@ -295,8 +295,9 @@ func (p *Procstat) addMetric(proc Process, acc telegraf.Accumulator, t time.Time
 		fields[prefix+"memory_stack"] = mem.Stack
 		fields[prefix+"memory_locked"] = mem.Locked
 	}
-
-	collectMemmap(proc, prefix, fields)
+	if p.cfg.features["mmap"] {
+		collectMemmap(proc, prefix, fields)
+	}
 
 	memPerc, err := proc.MemoryPercent()
 	if err == nil {
