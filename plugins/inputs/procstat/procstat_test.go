@@ -13,8 +13,7 @@ import (
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/process"
 	"github.com/stretchr/testify/require"
-	
-	"github.com/influxdata/telegraf"
+
 	"github.com/influxdata/telegraf/testutil"
 )
 
@@ -135,9 +134,6 @@ func (p *testProc) MemoryInfo() (*process.MemoryInfoStat, error) {
 
 func (p *testProc) MemoryMaps(bool) (*[]process.MemoryMapsStat, error) {
 	return &[]process.MemoryMapsStat{}, nil
-}
-func (p *testProc) Metric(prefix string, cfg *collectionConfig) telegraf.Metric {
-	return nil
 }
 func (p *testProc) Name() (string, error) {
 	return "test_proc", nil

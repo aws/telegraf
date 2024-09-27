@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/influxdata/telegraf"
-	"github.com/influxdata/telegraf/metric"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/process"
 )
@@ -77,18 +75,4 @@ func (p *Proc) Percent(_ time.Duration) (float64, error) {
 		return 0, fmt.Errorf("must call Percent twice to compute percent cpu")
 	}
 	return cpuPerc, err
-}
-
-func (p *Proc) Metric(prefix string, cfg *collectionConfig) telegraf.Metric {
-	if prefix != "" {
-		prefix += "_"
-	}
-
-	fields := make(map[string]interface{})
-
-	if cfg.features["mmap"] {
-		collectMemmap(p, prefix, fields)
-	}
-
-	return metric.New("procstat", p.tags, fields, time.Time{})
 }
