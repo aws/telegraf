@@ -587,9 +587,6 @@ func (p *Procstat) Init() error {
 
 func init() {
 	inputs.Add("procstat", func() telegraf.Input {
-		return &Procstat{
-			Properties:    []string{"mmap"},
-			createProcess: NewProc,
-		}
+		return &Procstat{}
 	})
 }
