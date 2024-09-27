@@ -2,7 +2,6 @@ package procstat
 
 import (
 	"fmt"
-	"github.com/influxdata/telegraf"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -14,7 +13,8 @@ import (
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/process"
 	"github.com/stretchr/testify/require"
-
+	
+	"github.com/influxdata/telegraf"
 	"github.com/influxdata/telegraf/testutil"
 )
 

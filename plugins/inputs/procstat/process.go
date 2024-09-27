@@ -2,10 +2,10 @@ package procstat
 
 import (
 	"fmt"
-	"github.com/influxdata/telegraf"
-	"github.com/influxdata/telegraf/metric"
 	"time"
 
+	"github.com/influxdata/telegraf"
+	"github.com/influxdata/telegraf/metric"
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/process"
 )
@@ -18,7 +18,6 @@ type Process interface {
 	MemoryInfo() (*process.MemoryInfoStat, error)
 	Name() (string, error)
 	MemoryMaps(bool) (*[]process.MemoryMapsStat, error)
-	Metric(string, *collectionConfig) telegraf.Metric
 	Cmdline() (string, error)
 	NumCtxSwitches() (*process.NumCtxSwitchesStat, error)
 	NumFDs() (int32, error)

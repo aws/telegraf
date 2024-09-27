@@ -47,7 +47,6 @@ type Procstat struct {
 	Properties             []string `toml:"properties"`
 
 	cfg             collectionConfig
-	oldMode         bool
 	solarisMode     bool
 	finder          PIDFinder
 	createPIDFinder func() (PIDFinder, error)
@@ -573,12 +572,9 @@ func (p *Procstat) Init() error {
 	// Convert collection properties
 	p.cfg.features = make(map[string]bool, len(p.Properties))
 	for _, prop := range p.Properties {
-		switch prop {
-		case "cpu", "limits", "memory", "mmap": //"cpu", "limits", "memory" not needed (might be useful for the future)
-		default:
-			return fmt.Errorf("invalid 'properties' setting %q", prop)
+		if prop == "mmap" {
+			p.cfg.features[prop] = true
 		}
-		p.cfg.features[prop] = true
 	}
 
 	return nil

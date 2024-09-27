@@ -2,6 +2,7 @@
 
 package procstat
 
+// pulled this from this commit https://github.com/influxdata/telegraf/pull/13779
 func collectMemmap(proc Process, prefix string, fields map[string]any) {
 	memMapStats, err := proc.MemoryMaps(true)
 	if err == nil && len(*memMapStats) == 1 {
