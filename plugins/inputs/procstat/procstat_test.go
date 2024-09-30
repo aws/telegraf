@@ -474,3 +474,24 @@ func TestGather_MemorySwap(t *testing.T) {
 	fields := acc.Metrics[0].Fields
 	require.Equal(t, int64(1024), fields["memory_swap"])
 }
+
+func TestGather_NoMemorySwap(t *testing.T) {
+	var acc testutil.Accumulator
+
+	p := Procstat{
+		Exe:             exe,
+		createPIDFinder: pidFinder([]PID{pid}),
+		createProcess: func(PID) (Process, error) {
+			proc := &testProc{
+				pid: pid,
+				tags: map[string]string{
+					"exe": exe,
+				},
+			}
+			return proc, nil
+		},
+	}
+
+	require.NoError(t, acc.GatherError(p.Gather))
+	require.False(t, acc.HasField("procstat", "memory_swap"))
+}
