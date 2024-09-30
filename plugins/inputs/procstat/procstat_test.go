@@ -450,3 +450,28 @@ func TestGather_SameTimestamps(t *testing.T) {
 
 	require.Equal(t, procstat.Time, procstatLookup.Time)
 }
+
+func TestGather_MemorySwap(t *testing.T) {
+	var acc testutil.Accumulator
+	pid := PID(os.Getpid())
+
+	p := Procstat{
+		Exe:             exe,
+		Properties:      []string{"mmap"},
+		createPIDFinder: pidFinder([]PID{pid}),
+		createProcess: func(pid PID) (Process, error) {
+			return &testProc{
+				pid: pid,
+				tags: map[string]string{
+					"memory_swap": "1024",
+				},
+			}, nil
+		},
+	}
+
+	require.NoError(t, acc.GatherError(p.Gather))
+
+	require.True(t, acc.HasIntField("procstat", "memory_swap"))
+	fields := acc.Metrics[0].Fields
+	require.Equal(t, int64(1024), fields["memory_swap"])
+}
