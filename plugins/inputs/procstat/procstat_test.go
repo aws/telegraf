@@ -132,9 +132,14 @@ func (p *testProc) MemoryInfo() (*process.MemoryInfoStat, error) {
 	return &process.MemoryInfoStat{}, nil
 }
 
-func (p *testProc) MemoryMaps(bool) (*[]process.MemoryMapsStat, error) {
-	return &[]process.MemoryMapsStat{}, nil
+func (p *testProc) MemoryMaps(_ bool) (*[]process.MemoryMapsStat, error) {
+	return &[]process.MemoryMapsStat{
+		{
+			Swap: 1024,
+		},
+	}, nil
 }
+
 func (p *testProc) Name() (string, error) {
 	return "test_proc", nil
 }
@@ -459,19 +464,13 @@ func TestGather_MemorySwap(t *testing.T) {
 		Exe:             exe,
 		Properties:      []string{"mmap"},
 		createPIDFinder: pidFinder([]PID{pid}),
-		createProcess: func(pid PID) (Process, error) {
-			return &testProc{
-				pid: pid,
-				tags: map[string]string{
-					"memory_swap": "1024",
-				},
-			}, nil
-		},
+		createProcess:   newTestProc,
 	}
 
 	require.NoError(t, acc.GatherError(p.Gather))
 
 	require.True(t, acc.HasIntField("procstat", "memory_swap"))
+
 	fields := acc.Metrics[0].Fields
 	require.Equal(t, int64(1024), fields["memory_swap"])
 }

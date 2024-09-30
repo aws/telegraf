@@ -14,7 +14,9 @@ import (
 
 type MemoryInfoExStat struct{}
 
-type MemoryMapsStat struct{}
+type MemoryMapsStat struct {
+	Swap uint64
+}
 
 func (p *Process) TgidWithContext(ctx context.Context) (int32, error) {
 	return 0, common.ErrNotImplementedError
