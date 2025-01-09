@@ -5,6 +5,10 @@ package disk
 
 import (
 	"context"
+	"fmt"
+	"os/exec"
+	"strconv"
+	"strings"
 
 	"github.com/shirou/gopsutil/v3/internal/common"
 	"golang.org/x/sys/unix"
@@ -84,4 +88,70 @@ func SerialNumberWithContext(ctx context.Context, name string) (string, error) {
 
 func LabelWithContext(ctx context.Context, name string) (string, error) {
 	return "", common.ErrNotImplementedError
+}
+
+func UsageWithContext(ctx context.Context, path string) (*UsageStat, error) {
+	cmd := exec.Command("/bin/df", "-ki", path)
+	output, err := cmd.Output()
+	if err != nil {
+		return nil, fmt.Errorf("error executing df command: %v", err)
+	}
+
+	lines := strings.Split(strings.TrimSpace(string(output)), "\n")
+	if len(lines) < 2 {
+		return nil, fmt.Errorf("unexpected df output format")
+	}
+
+	// Skip the header line and process the data line
+	fields := strings.Fields(lines[1])
+	if len(fields) < 9 {
+		return nil, fmt.Errorf("unexpected number of fields in df output")
+	}
+
+	// Parse values
+	total, err := parseUint64(fields[1])
+	if err != nil {
+		return nil, fmt.Errorf("error parsing total blocks: %v", err)
+	}
+	used, err := parseUint64(fields[2])
+	if err != nil {
+		return nil, fmt.Errorf("error parsing used blocks: %v", err)
+	}
+	free, err := parseUint64(fields[3])
+	if err != nil {
+		return nil, fmt.Errorf("error parsing available blocks: %v", err)
+	}
+	inodesUsed, err := parseUint64(fields[5])
+	if err != nil {
+		return nil, fmt.Errorf("error parsing iused: %v", err)
+	}
+	inodesFree, err := parseUint64(fields[6])
+	if err != nil {
+		return nil, fmt.Errorf("error parsing ifree: %v", err)
+	}
+
+	// Calculate percentages
+	usedPercent := float64(used) / float64(total) * 100
+	inodesTotal := inodesUsed + inodesFree
+	inodesUsedPercent := float64(inodesUsed) / float64(inodesTotal) * 100
+
+	// Create UsageStat object
+	us := &UsageStat{
+		Path:              fields[8],
+		Fstype:            fields[0],
+		Total:             total * 1024,
+		Free:              free * 1024,
+		Used:              used * 1024,
+		UsedPercent:       usedPercent,
+		InodesTotal:       inodesTotal,
+		InodesUsed:        inodesUsed,
+		InodesFree:        inodesFree,
+		InodesUsedPercent: inodesUsedPercent,
+	}
+
+	return us, nil
+}
+
+func parseUint64(s string) (uint64, error) {
+	return strconv.ParseUint(s, 10, 64)
 }
