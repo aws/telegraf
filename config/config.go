@@ -230,6 +230,10 @@ type AgentConfig struct {
 	// Method for translating SNMP objects. 'netsnmp' to call external programs,
 	// 'gosmi' to use the built-in library.
 	SnmpTranslator string `toml:"snmp_translator"`
+
+	// Mode that represents the platform that the agent will run in
+	// Example: EC2, EKS, etc
+	Mode string `toml:"mode"`
 }
 
 // InputNames returns a list of strings of the configured inputs.
