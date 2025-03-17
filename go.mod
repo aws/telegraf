@@ -1,6 +1,7 @@
 module github.com/influxdata/telegraf
 
 go 1.20
+toolchain go1.24.1
 
 require (
 	cloud.google.com/go/bigquery v1.55.0
@@ -125,7 +126,7 @@ require (
 	github.com/sleepinggenius2/gosmi v0.4.4
 	github.com/snowflakedb/gosnowflake v1.6.21
 	github.com/streadway/amqp v0.0.0-20190827072141-edfb9018d271
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	github.com/tbrandon/mbserver v0.0.0-20170611213546-993e1772cc62
 	github.com/testcontainers/testcontainers-go v0.26.0
 	github.com/tidwall/gjson v1.10.2
@@ -141,7 +142,7 @@ require (
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v0.44.0
 	go.opentelemetry.io/otel/sdk/metric v1.21.0
 	go.starlark.net v0.0.0-20210406145628-7a1108eaa012
-	golang.org/x/net v0.27.0
+	golang.org/x/net v0.30.0
 	golang.org/x/oauth2 v0.13.0
 	golang.org/x/sync v0.10.0
 	golang.org/x/sys v0.28.0
@@ -151,16 +152,21 @@ require (
 	google.golang.org/genproto v0.0.0-20231002182017-d307bd883b97
 	google.golang.org/genproto/googleapis/api v0.0.0-20231012201019-e917dd12ba7a
 	google.golang.org/grpc v1.59.0
-	google.golang.org/protobuf v1.34.2
+	google.golang.org/protobuf v1.35.1
 	gopkg.in/gorethink/gorethink.v3 v3.0.5
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gopkg.in/olivere/elastic.v5 v5.0.86
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7
 	gopkg.in/yaml.v2 v2.4.0
-	k8s.io/api v0.28.2
-	k8s.io/apimachinery v0.28.2
+	k8s.io/api v0.32.3
+	k8s.io/apimachinery v0.32.3
 	k8s.io/client-go v0.28.2
 	modernc.org/sqlite v1.18.2
+)
+
+require (
+	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
+	github.com/x448/float16 v0.8.4 // indirect
 )
 
 require (
@@ -238,17 +244,17 @@ require (
 	github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/echlebek/timeproxy v1.0.0 // indirect
-	github.com/emicklei/go-restful/v3 v3.10.2 // indirect
+	github.com/emicklei/go-restful/v3 v3.11.0 // indirect
 	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/form3tech-oss/jwt-go v3.2.5+incompatible // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/go-asn1-ber/asn1-ber v1.5.1 // indirect
-	github.com/go-logr/logr v1.3.0 // indirect
+	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
-	github.com/go-openapi/jsonpointer v0.20.0 // indirect
+	github.com/go-openapi/jsonpointer v0.21.0 // indirect
 	github.com/go-openapi/jsonreference v0.20.2 // indirect
-	github.com/go-openapi/swag v0.22.4 // indirect
+	github.com/go-openapi/swag v0.23.0 // indirect
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/goburrow/modbus v0.1.0 // indirect
 	github.com/goburrow/serial v0.1.0 // indirect
@@ -264,7 +270,7 @@ require (
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/s2a-go v0.1.7 // indirect
-	github.com/google/uuid v1.3.1 // indirect
+	github.com/google/uuid v1.6.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.3.1 // indirect
 	github.com/googleapis/gax-go/v2 v2.12.0 // indirect
 	github.com/grid-x/serial v0.0.0-20211107191517-583c7356b3aa // indirect
@@ -344,7 +350,7 @@ require (
 	github.com/signalfx/com_signalfx_metrics_protobuf v0.0.3 // indirect
 	github.com/signalfx/gohistogram v0.0.0-20160107210732-1ccfd2ff5083 // indirect
 	github.com/signalfx/sapm-proto v0.12.0 // indirect
-	github.com/stretchr/objx v0.5.0 // indirect
+	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.12 // indirect
@@ -376,10 +382,10 @@ require (
 	go.uber.org/zap v1.23.0 // indirect
 	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
-	golang.org/x/mod v0.17.0 // indirect
+	golang.org/x/mod v0.21.0 // indirect
 	golang.org/x/term v0.27.0 // indirect
-	golang.org/x/time v0.5.0 // indirect
-	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
+	golang.org/x/time v0.7.0 // indirect
+	golang.org/x/tools v0.26.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231009173412-8bfb1ae86b6c // indirect
@@ -390,9 +396,9 @@ require (
 	gopkg.in/sourcemap.v1 v1.0.5 // indirect
 	gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/klog/v2 v2.100.1 // indirect
-	k8s.io/kube-openapi v0.0.0-20230717233707-2695361300d9 // indirect
-	k8s.io/utils v0.0.0-20230711102312-30195339c3c7 // indirect
+	k8s.io/klog/v2 v2.130.1 // indirect
+	k8s.io/kube-openapi v0.0.0-20241105132330-32ad38e42d3f // indirect
+	k8s.io/utils v0.0.0-20241104100929-3ea5e8cea738 // indirect
 	lukechampine.com/uint128 v1.2.0 // indirect
 	modernc.org/cc/v3 v3.40.0 // indirect
 	modernc.org/ccgo/v3 v3.16.13 // indirect
@@ -402,9 +408,9 @@ require (
 	modernc.org/opt v0.1.3 // indirect
 	modernc.org/strutil v1.1.3 // indirect
 	modernc.org/token v1.1.0 // indirect
-	sigs.k8s.io/json v0.0.0-20221116044647-bc3834ca7abd // indirect
-	sigs.k8s.io/structured-merge-diff/v4 v4.3.0 // indirect
-	sigs.k8s.io/yaml v1.3.0 // indirect
+	sigs.k8s.io/json v0.0.0-20241010143419-9aa6b5e7a4b3 // indirect
+	sigs.k8s.io/structured-merge-diff/v4 v4.4.2 // indirect
+	sigs.k8s.io/yaml v1.4.0 // indirect
 )
 
 // replaced due to https://github.com/satori/go.uuid/issues/73
