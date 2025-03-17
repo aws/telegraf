@@ -1,6 +1,7 @@
 module github.com/influxdata/telegraf
 
 go 1.20
+toolchain go1.24.1
 
 require (
 	cloud.google.com/go/bigquery v1.55.0
@@ -38,7 +39,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/kinesis v1.13.0
 	github.com/aws/aws-sdk-go-v2/service/sts v1.18.7
 	github.com/aws/aws-sdk-go-v2/service/timestreamwrite v1.13.6
-	github.com/aws/smithy-go v1.13.5
+	github.com/aws/smithy-go v1.22.3
 	github.com/benbjohnson/clock v1.3.0
 	github.com/bmatcuk/doublestar/v3 v3.0.0
 	github.com/caio/go-tdigest v3.1.0+incompatible
