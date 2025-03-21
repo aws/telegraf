@@ -1,6 +1,7 @@
 module github.com/influxdata/telegraf
 
 go 1.20
+toolchain go1.24.1
 
 require (
 	cloud.google.com/go/bigquery v1.55.0
@@ -62,7 +63,7 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gobwas/glob v0.2.3
 	github.com/gofrs/uuid v4.2.0+incompatible
-	github.com/golang-jwt/jwt/v4 v4.2.0
+	github.com/golang-jwt/jwt/v4 v4.5.2
 	github.com/golang/geo v0.0.0-20190916061304-5b978397cfec
 	github.com/golang/snappy v0.0.4
 	github.com/google/go-cmp v0.6.0
