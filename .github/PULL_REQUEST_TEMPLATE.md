@@ -1,4 +1,4 @@
-### Required for all PRs:
+# Required for all PRs
 
 <!-- Complete the tasks in the following list. Change [ ] to [x] to
 show completion. -->

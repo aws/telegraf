@@ -2,7 +2,7 @@
 
 [![Test](https://github.com/shirou/gopsutil/actions/workflows/test.yml/badge.svg)](https://github.com/shirou/gopsutil/actions/workflows/test.yml) [![Coverage Status](https://coveralls.io/repos/github/shirou/gopsutil/badge.svg?branch=master)](https://coveralls.io/github/shirou/gopsutil?branch=master) [![Go Reference](https://pkg.go.dev/badge/github.com/shirou/gopsutil.svg)](https://pkg.go.dev/github.com/shirou/gopsutil)
 
-This is a port of psutil (https://github.com/giampaolo/psutil). The
+This is a port of psutil (<https://github.com/giampaolo/psutil>). The
 challenge is porting all psutil functions on some architectures.
 
 ## v3 migration
@@ -69,8 +69,10 @@ func main() {
 
 The output is below.
 
-    Total: 3179569152, Free:284233728, UsedPercent:84.508194%
-    {"total":3179569152,"available":492572672,"used":2895335424,"usedPercent":84.50819439828305, (snip...)}
+```text
+Total: 3179569152, Free:284233728, UsedPercent:84.508194%
+{"total":3179569152,"available":492572672,"used":2895335424,"usedPercent":84.50819439828305, (snip...)}
+```
 
 You can set an alternative location to `/proc` by setting the `HOST_PROC`
 environment variable.
@@ -92,7 +94,7 @@ environment variable.
 
 ## Documentation
 
-see http://godoc.org/github.com/shirou/gopsutil
+see <http://godoc.org/github.com/shirou/gopsutil>
 
 ## Requirements
 
@@ -176,7 +178,6 @@ Some code is ported from Ohai. many thanks.
 |net\_if\_addrs        |       |         |         |        |         |         |         |
 |net\_if\_stats        |       |         |         |        |         |         |         |
 |netfilter\_conntrack  |x      |         |         |        |         |         |         |
-
 
 ### Process class
 
@@ -271,24 +272,24 @@ New BSD License (same as psutil)
 
 I have been influenced by the following great works:
 
-- psutil: https://github.com/giampaolo/psutil
-- dstat: https://github.com/dagwieers/dstat
-- gosigar: https://github.com/cloudfoundry/gosigar/
-- goprocinfo: https://github.com/c9s/goprocinfo
-- go-ps: https://github.com/mitchellh/go-ps
-- ohai: https://github.com/opscode/ohai/
+- psutil: <https://github.com/giampaolo/psutil>
+- dstat: <https://github.com/dagwieers/dstat>
+- gosigar: <https://github.com/cloudfoundry/gosigar/>
+- goprocinfo: <https://github.com/c9s/goprocinfo>
+- go-ps: <https://github.com/mitchellh/go-ps>
+- ohai: <https://github.com/opscode/ohai/>
 - bosun:
-  https://github.com/bosun-monitor/bosun/tree/master/cmd/scollector/collectors
+  <https://github.com/bosun-monitor/bosun/tree/master/cmd/scollector/collectors>
 - mackerel:
-  https://github.com/mackerelio/mackerel-agent/tree/master/metrics
+  <https://github.com/mackerelio/mackerel-agent/tree/master/metrics>
 
 ## How to Contribute
 
-1.  Fork it
-2.  Create your feature branch (git checkout -b my-new-feature)
-3.  Commit your changes (git commit -am 'Add some feature')
-4.  Push to the branch (git push origin my-new-feature)
-5.  Create new Pull Request
+1. Fork it
+2. Create your feature branch (git checkout -b my-new-feature)
+3. Commit your changes (git commit -am 'Add some feature')
+4. Push to the branch (git push origin my-new-feature)
+5. Create new Pull Request
 
 English is not my native language, so PRs correcting grammar or spelling
 are welcome and appreciated.
